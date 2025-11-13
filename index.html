@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuevo | AI Chatbot</title>
+   <link rel="icon" href="logo.png" type="image/x-icon">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0e0e0e;
+      color: white;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-container {
+      width: 400px;
+      background: #1a1a1a;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: #004d26;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .chat-box {
+      padding: 20px;
+      height: 350px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      scroll-behavior: smooth;
+    }
+
+    .message {
+      padding: 10px 15px;
+      border-radius: 15px;
+      max-width: 80%;
+    }
+
+    .user {
+      align-self: flex-end;
+      background: #004d26;
+      color: white;
+    }
+
+    .bot {
+      align-self: flex-start;
+      background: #333;
+      color: white;
+    }
+
+    .chat-input {
+      border-top: 1px solid #333;
+      background: #111;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    select, button {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    select {
+      background: #222;
+      color: white;
+    }
+
+    button {
+      background: #004d26;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #00ff88;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">NUEVO AI Assistant</div>
+    <div class="chat-box" id="chatBox">
+      <div class="message bot">Hello! 👋 I'm NUEVO’s AI assistant. Select a question below to know more about our tote bags.</div>
+    </div>
+    <div class="chat-input">
+      <select id="questionSelect">
+        <option value="" disabled selected>Select your question...</option>
+        <option value="details">Give some details about the tote bag?</option>
+        <option value="purchase">Why should I purchase the tote bag?</option>
+        <option value="eco">How are the tote bags eco-friendly?</option>
+        <option value="colors">What are the color options for the tote bag?</option>
+      </select>
+      <button onclick="sendMessage()">Ask</button>
+    </div>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById("chatBox");
+    const select = document.getElementById("questionSelect");
+
+    function sendMessage() {
+      const value = select.value;
+      if (!value) return;
+
+      // User message
+      const userMessage = document.createElement("div");
+      userMessage.classList.add("message", "user");
+      userMessage.textContent = select.options[select.selectedIndex].text;
+      chatBox.appendChild(userMessage);
+
+      // Bot response
+      const botMessage = document.createElement("div");
+      botMessage.classList.add("message", "bot");
+      botMessage.textContent = getBotResponse(value);
+      chatBox.appendChild(botMessage);
+
+      chatBox.scrollTop = chatBox.scrollHeight; // auto scroll
+    }
+
+    function getBotResponse(value) {
+      switch(value) {
+        case "details":
+          return "Our tote bag is an upcycled masterpiece — handcrafted from fabric scraps, old belts, and recycled metal bits. It blends durability, contemporary design, and everyday functionality.";
+        case "purchase":
+          return "You should purchase this tote because it embodies conscious fashion — a durable, stylish, and sustainable companion made from reclaimed materials, perfect for modern lifestyles.";
+        case "eco":
+          return "Each tote bag is eco-friendly as it's crafted using discarded fabrics, denim, and jute, minimizing textile waste and reducing landfill impact through creative upcycling.";
+        case "colors":
+          return "Our collection features: Eco Blue Tote, Circuit Green Tote, Denim Grey Tote, Solar Orange Tote, and a vibrant Multi-Color Tote — each made from unique recycled materials.";
+        default:
+          return "Sorry, I can only answer the given questions!";
+      }
+    }
+  </script>
+</body>
+</html>
